@@ -24,18 +24,17 @@ jobs:
         with:
           workload_identity_provider: ${{ vars.GCP_WORKLOAD_PROVIDER }}
           service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
-
       - name: Setup Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v3
 
       - name: Check BigQuery connection
         run: |
-          bq --version
+          bq version
           gcloud auth list
 
       - name: Execute SQL
         run: |
-          for file in sql/**/*.sql; do
+          for file in sql/*.sql; do
             echo "Executing $file"
             bq query \
               --use_legacy_sql=false \
